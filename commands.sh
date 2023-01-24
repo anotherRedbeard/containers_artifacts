@@ -29,7 +29,7 @@ docker build -t <image_name> .
 docker run --network bridge -e SQLFQDN=$SQL_SERVER -e SQLUSER=SA -e SQLPASS=$SA_PASSWORD -e SQLDB=mydrivingDB registryqzu2798.azurecr.io/dataload:1.0
 
 #start up the POI container
-docker run -d -p 8080:80 --name poi -e "SQL_USER=SA" -e "SQL_PASSWORD=$SA_PASSWORD" -e "SQL_SERVER=$SQL_SERVER" -e "ASPNETCORE_ENVIRONMENT=local" tripinsights/poi:1.0
+docker run -d -p 8080:80 --name poi -e "SQL_USER=SA" -e "SQL_PASSWORD=$SA_PASSWORD" -e "SQL_SERVER=$SQL_SERVER" -e "ASPNETCORE_ENVIRONMENT=Local" tripinsights/poi:1.0
 
 #command to connect to registry
 az acr login --name <registry_name>
