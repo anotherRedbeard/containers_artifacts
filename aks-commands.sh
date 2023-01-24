@@ -18,9 +18,11 @@ az aks update -n openHackAKSCluster -g teamResources --attach-acr registryqzu279
 
 #create yaml deployment file from quick start
 
-
 #apply yaml for deployment
 kubectl apply -f azure-k8s.yaml 
+
+#port forward to test locally
+kubectl port-forward service/tripviewer 8080:80
 
 #show all pods
 kubectl get pods
