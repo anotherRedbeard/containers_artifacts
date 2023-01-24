@@ -1,3 +1,6 @@
+#login to sepecifc tenant
+az login -t <tenant-id>
+
 #command to build seperate images
 docker build -t <image_name> .
 
