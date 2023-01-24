@@ -13,6 +13,9 @@ docker stop <container_id>
 #remove docker container
 docker rm <container_id>
 
+#set SA_PASSWORD
+SA_PASSWORD=<your_secure_password>
+
 #command to build sql server container
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2017-latest
 
