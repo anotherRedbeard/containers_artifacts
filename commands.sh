@@ -16,6 +16,9 @@ docker rm <container_id>
 #set SA_PASSWORD
 SA_PASSWORD=<your_secure_password>
 
+#set SQL_SERVER
+SQL_SERVER=<your_local_ip>
+
 #command to build sql server container
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2017-latest
 
@@ -24,6 +27,9 @@ docker build -t <image_name> .
 
 #run data-load container, since we are using bridge network you will want to use the SQL_SERVER as the local IP of the machine.
 docker run --network bridge -e SQLFQDN=$SQL_SERVER -e SQLUSER=SA -e SQLPASS=$SA_PASSWORD -e SQLDB=mydrivingDB registryqzu2798.azurecr.io/dataload:1.0
+
+#start up the POI container
+docker run -d -p 8080:80 --name poi -e "SQL_USER=SA" -e "SQL_PASSWORD=$SA_PASSWORD" -e "SQL_SERVER=$SQL_SERVER" -e "ASPNETCORE_ENVIRONMENT=local" tripinsights/poi:1.0
 
 #command to connect to registry
 az acr login --name <registry_name>
