@@ -17,6 +17,13 @@ spec:
       containers:
       - name: tripviewer
         image: registryqzu2798.azurecr.io/tripinsights/tripviewer:1.0
+        env:
+        - name: TRIPS_API_ENDPOINT
+          value: 'http://trips'
+        - name: USERPROFILE_API_ENDPOINT
+          value: 'http://userprofile'
+        - name: ASPNETCORE_ENVIRONMENT
+          value: 'Development'
         ports:
         - containerPort: 80
 ---
