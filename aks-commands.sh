@@ -65,6 +65,10 @@ kubectl delete -f ./src/userprofile/aks-deploy.yaml
 #command to describe pods/service/deployments
 kubectl describe pod/service/deployment <name>
 
+#commands to add a specific user to a role with a namespace
+AKS_ID=$(az aks show -g teamResources -n aks_openhack --query id -o tsv)
+az role assignment create --role "Azure Kubernetes Service RBAC Reader" --assignee <USERID> --scope $AKS_ID/namespaces/<NAMESPACE>
+
 #command to create AKS cluster integrated into VNET
 az aks create --resource-group teamResources \
   --name aks_openhack \
