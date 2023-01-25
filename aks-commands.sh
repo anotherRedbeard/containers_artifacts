@@ -48,3 +48,9 @@ export SQL_SERVER=sqlserverqzu2798.database.windows.net
 
 kubectl create secret generic $SECRET_NAME --from-literal SQL_SERVER=$SQL_SERVER --from-literal SQL_DBNAME=$SQL_DBNAME --from-literal SQL_USER=$SQL_USER --from-literal SQL_PASSWORD=$SQL_PASSWORD
 
+#Creating namespaces, I created the namespace-deploy.yaml file to create the namespaces then run the following to create the pods in the right namespace
+kubectl apply -f ./src/poi/aks-deploy.yaml --namespace=api
+kubectl apply -f ./src/trips/aks-deploy.yaml --namespace=api
+kubectl apply -f ./src/tripviewer/aks-deploy.yaml --namespace=web
+kubectl apply -f ./src/user-java/aks-deploy.yaml --namespace=api
+kubectl apply -f ./src/userprofile/aks-deploy.yaml --namespace=api
