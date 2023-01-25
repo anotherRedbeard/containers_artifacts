@@ -16,31 +16,21 @@ spec:
         app: trips
     spec:
       containers:
-      - name: trips
-        image: registryqzu2798.azurecr.io/tripinsights/trips:1.0
-        env:
-          - name: SQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_USER
-          - name: SQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_PASSWORD
-          - name: SQL_DBNAME
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_DBNAME
-          - name: SQL_SERVER
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_SERVER
-        ports:
-        - containerPort: 80
+        - name: trips
+          image: registryqzu2798.azurecr.io/tripinsights/trips:1.0
+          volumeMounts:
+          - name: openhack-secrets
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
+          ports:
+           - containerPort: 80
+      volumes:
+        - name: openhack-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "openhack-secrets"
 ---
 apiVersion: v1 
 kind: Service 
