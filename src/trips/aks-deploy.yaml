@@ -20,7 +20,7 @@ spec:
           image: registryqzu2798.azurecr.io/tripinsights/trips:1.0
           volumeMounts:
           - name: openhack-secrets
-            mountPath: "/mnt/secrets-store"
+            mountPath: "/secrets"
             readOnly: true
           ports:
            - containerPort: 80

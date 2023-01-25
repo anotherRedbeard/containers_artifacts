@@ -18,31 +18,22 @@ spec:
       containers:
       - name: poi
         image: registryqzu2798.azurecr.io/tripinsights/poi:1.0
+        volumeMounts:
+          - name: openhack-secrets
+            mountPath: "/secrets"
+            readOnly: true
         env:
-          - name: SQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_USER
-          - name: SQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_PASSWORD
-          - name: SQL_DBNAME
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_DBNAME
-          - name: SQL_SERVER
-            valueFrom:
-              secretKeyRef:
-                name: sql
-                key: SQL_SERVER
           - name: WEB_SERVER_BASE_URI
             value: 'http://api.poi'
         ports:
-        - containerPort: 80
+           - containerPort: 80
+      volumes:
+        - name: openhack-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "openhack-secrets"
 ---
 apiVersion: v1 
 kind: Service 

@@ -20,9 +20,9 @@ spec:
         image: registryqzu2798.azurecr.io/tripinsights/tripviewer:1.0
         env:
         - name: TRIPS_API_ENDPOINT
-          value: 'http://api.trips'
+          value: 'http://trips.api'
         - name: USERPROFILE_API_ENDPOINT
-          value: 'http://api.userprofile'
+          value: 'http://userprofile.api'
         - name: ASPNETCORE_ENVIRONMENT
           value: 'Development'
         ports:
