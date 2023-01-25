@@ -93,3 +93,14 @@ az aks create --resource-group teamResources \
 
   #Grant Access to AKS cluster on key vault
   az keyvault set-policy -n kvopenhack --secret-permissions get --spn b3fa3919-9aaa-41e8-bff4-4bd689000e3a
+
+#create ingress controller
+NAMESPACE=ingress-basic
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --create-namespace \
+  --namespace $NAMESPACE \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-health-probe-request-path"=/healthz
