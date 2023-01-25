@@ -83,7 +83,8 @@ az aks create --resource-group teamResources \
   --enabled-managed-identity
 
   #add Key Vault driver to existing cluster
-
+  az aks create -n myAKSCluster -g myResourceGroup --enable-addons azure-keyvault-secrets-provider --enable-managed-identity
+  
   #Get managed identity of cluster
   export SECRETS_PROVIDER_IDENTITY=$(az aks show \
   -g $RESOURCE_GROUP \
