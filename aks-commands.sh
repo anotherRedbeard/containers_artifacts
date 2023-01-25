@@ -38,3 +38,13 @@ kubectl exec --stdin --tty blazor-deployment-6cbc4b67f4-q48z4 -- sh
 
 #get more detail on item
 kubectl describe <service|pod> <service/pod name>
+
+#secret(s) in AKS
+export SQL_PASSWORD=<password>
+export SECRET_NAME=sql
+export SQL_DBNAME=mydrivingDB
+export SQL_USER=sqlDrivingAdmin
+export SQL_SERVER=sqlserverqzu2798.database.windows.net
+
+kubectl create secret generic $SECRET_NAME --from-literal SQL_SERVER=$SQL_SERVER --from-literal SQL_DBNAME=$SQL_DBNAME --from-literal SQL_USER=$SQL_USER --from-literal SQL_PASSWORD=$SQL_PASSWORD
+
