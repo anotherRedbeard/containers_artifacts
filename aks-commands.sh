@@ -81,3 +81,14 @@ az aks create --resource-group teamResources \
   --enable-aad \
   --enable-azure-rbac
   --enabled-managed-identity
+
+  #add Key Vault driver to existing cluster
+
+  #Get managed identity of cluster
+  export SECRETS_PROVIDER_IDENTITY=$(az aks show \
+  -g $RESOURCE_GROUP \
+  -n $CLUSTER_NAME \
+  --query "addonProfiles.azureKeyvaultSecretsProvider.identity.clientId" -o tsv)
+
+  #Grant Access to AKS cluster on key vault
+  az keyvault set-policy -n kvopenhack --secret-permissions get --spn b3fa3919-9aaa-41e8-bff4-4bd689000e3a
