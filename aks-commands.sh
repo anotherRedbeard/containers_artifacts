@@ -64,3 +64,16 @@ kubectl delete -f ./src/userprofile/aks-deploy.yaml
 
 #command to describe pods/service/deployments
 kubectl describe pod/service/deployment <name>
+
+#command to create AKS cluster integrated into VNET
+az aks create --resource-group teamResources \
+  --name aks_openhack \
+  --network-plugin azure \
+  --vnet-subnet-id /subscriptions/25a39fd6-769f-4660-a60a-e457067347fb/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/aks \
+  --docker-bridge-address 172.17.0.1/16 \
+  --dns-service-ip 10.3.0.10 \
+  --service-cidr 10.3.0.0/24 \
+  --generate-ssh-keys \
+  --enable-aad \
+  --enable-azure-rbac
+  --enabled-managed-identity
