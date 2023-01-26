@@ -6,7 +6,7 @@ metadata:
   annotations:
 #    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
+#    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
@@ -29,7 +29,7 @@ metadata:
   annotations:
 #    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
+#    nginx.ingress.kubernetes.io/use-regex: "true"
 #    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
@@ -50,21 +50,21 @@ spec:
             name: trips
             port:
               number: 80        
-      - path: /api/poi(/|$)(.*)
+      - path: /api/poi
         pathType: Prefix
         backend:
           service:
             name: poi
             port:
               number: 80
-      - path: /api/user-java(/|$)(.*)
+      - path: /api/user-java
         pathType: Prefix
         backend:
           service:
             name: user-java
             port:
               number: 80
-      - path: /api/user(/|$)(.*)
+      - path: /api/user
         pathType: Prefix
         backend:
           service:
