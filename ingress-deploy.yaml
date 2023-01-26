@@ -4,16 +4,15 @@ metadata:
   name: tripviewer-ingress
   namespace: web
   annotations:
-#    kubernetes.io/ingress.class: nginx test
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   ingressClassName: nginx
   rules:
-   - http:
+  - http:
       paths:
-      - path: /
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:
@@ -27,44 +26,36 @@ metadata:
   name: api-ingress
   namespace: api
   annotations:
-#    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#    nginx.ingress.kubernetes.io/use-regex: "true"
-#    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /api/trips
+      - path: /api/trips(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: trips
             port:
               number: 80
-      - path: /api/trips/healthcheck
-        pathType: Prefix
-        backend:
-          service:
-            name: trips
-            port:
-              number: 80        
-      - path: /api/poi
+      - path: /api/poi(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: poi
             port:
               number: 80
-      - path: /api/user-java
+      - path: /api/user-java(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: user-java
             port:
               number: 80
-      - path: /api/user
+      - path: /api/user(/|$)(.*)
         pathType: Prefix
         backend:
           service:
