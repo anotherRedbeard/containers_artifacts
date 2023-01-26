@@ -4,15 +4,14 @@ metadata:
   name: tripviewer-ingress
   namespace: web
   annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#    nginx.ingress.kubernetes.io/use-regex: "true"
-#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+#    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-  - host: 3b91e7337777433da59a.southcentralus.aksapp.io
-    http:
+   - http:
       paths:
       - path: /
         pathType: Prefix
@@ -28,21 +27,29 @@ metadata:
   name: api-ingress
   namespace: api
   annotations:
+#    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /api/$2
+#    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /api/trips(/|$)(.*)
+      - path: /api/trips
         pathType: Prefix
         backend:
           service:
             name: trips
             port:
               number: 80
+      - path: /api/trips/healthcheck
+        pathType: Prefix
+        backend:
+          service:
+            name: trips
+            port:
+              number: 80        
       - path: /api/poi(/|$)(.*)
         pathType: Prefix
         backend:
